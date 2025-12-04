@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Music CyberZain</title>
+<style>
+   *{ margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Poppins,sans-serif;}
+    body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #2d0057, #090016, #000);
+        overflow-x: hidden;
+        color: white;
+        padding: 30px 12px;
+    }
+    .bg {
+        position: fixed;
+        inset: 0;
+        background: url("https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg") 
+        center/cover no-repeat;
+        mix-blend-mode: screen;
+        opacity: 0.35;
+        z-index: -3;
+    }
+    .grid {
+        position: fixed;
+        width: 200%;
+        height: 200%;
+        top: -20%;
+        left: -50%;
+        background:
+          repeating-linear-gradient(#ffffff05 0px,#ffffff05 2px,transparent 2px,transparent 60px),
+          repeating-linear-gradient(90deg,#ffffff05 0px,#ffffff05 2px,transparent 2px,transparent 60px);
+        animation: gridmove 18s linear infinite;
+        z-index: -2;
+        opacity: 0.18;
+    }
+    @keyframes gridmove { from {transform: translateY(0);} to {transform: translateY(-300px);} }
+
+    .container {
+        width: 100%;
+        max-width: 920px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 18px;
+    }
+
+    .player {
+        padding: 20px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 35px #8800ff33;
+    }
+
+    .brand { 
+       text-align:center; 
+       margin-bottom:14px; 
+       font-weight:700;
+       font-size:26px; 
+       color:transparent;
+       display:block;
+       background:linear-gradient(90deg,#ff4da6,#ffd54a,#4df5ff,#7d6bff,#ff6b6b);
+      background-clip:
+      text;-webkit-background-clip:text;
+      animation:rainbow 6s linear infinite;background-size:300% 100%;
+    }
+    @keyframes rainbow { 0%{background-position:0%}50%{background-position:100%}100%{background-position:0%} }
+
+    .cd-box { 
+      text-align:center; 
+      margin: 6px 0 18px;
+      }
+    .cd {
+        width: 200px;
+        height:200px;
+        border-radius:50%;
+        margin: 0 auto;
+        background-size:cover;
+        background-position:center;
+        border:5px solid rgba(255,255,255,0.35);
+        box-shadow: 0 0 22px #ff00ff88;
+        transform-origin:center;
+        transition: transform .35s ease, box-shadow .35s ease;
+        animation: spin 10s linear infinite;
+        animation-play-state: paused;
+    }
+    @keyframes spin { 
+      from {transform:rotate(0)} to {transform:rotate(360deg)} }
+    .cd.playing { 
+      animation-play-state: running; 
+      transform: scale(1.06) translateY(-6px); 
+      box-shadow:0 0 38px #ff00ffAA,0 0 60px #9a00ff55; }
+
+    .visualizer { 
+      display:flex; 
+      justify-content:center;
+      gap:4px; 
+      margin-top:12px; 
+      height:36px; align-items:flex-end; }
+    .bar { 
+      width:6px; 
+      height:6px; 
+      background:linear-gradient(135deg,#9900ff,#ff00c8); 
+      border-radius:3px; 
+      transition:height .12s linear;
+    }
+
+    .side {
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(0,0,0,0.18);
+        border: 1px solid rgba(255,255,255,0.04);
+        backdrop-filter: blur(6px);
+    }
+
+    select, input[type="text"] {
+        width:100%; 
+        padding:10px 12px; 
+        border-radius:10px; 
+        border:none;
+        background: rgba(255,255,255,0.06); 
+        color:white; 
+        font-size:15px; margin-bottom:12px;
+    }
+
+    .btn {
+        width:100%; 
+        padding:12px; 
+        border-radius:10px; 
+        border:none; 
+        cursor:pointer;
+        font-size:16px; 
+        background:linear-gradient(135deg,#9900ff,#ff00c8); 
+        color:white; 
+        box-shadow:0 0 14px #ff00e6AA;
+    }
+    .controls { 
+      display:flex; 
+      gap:8px; 
+      margin:12px 0; 
+      align-items:center; 
+      justify-content:center;
+      }
+    .controls button { 
+      background:none;
+      border:none;
+      color:white;
+      font-size:22px; 
+      cursor:pointer; 
+      padding:10px; 
+      border-radius:8px;
+      }
+
+    .yt-info { 
+      text-align:center; 
+      margin-top:8px; }
+    .yt-info h2 { 
+      font-size:18px; 
+      margin-bottom:6px; 
+      white-space:nowrap; 
+      overflow:hidden; 
+      text-overflow:ellipsis;
+      }
+    .yt-info p { 
+      font-size:13px; 
+      opacity:0.8; margin:0; }
+
+    .yt-bar { 
+      width:100%; 
+      height:8px; 
+      background:#222; 
+      border-radius:8px; 
+      position:relative; 
+      cursor:pointer; 
+      margin-top:10px;
+      }
+    #progress { 
+      width:0%; 
+      height:100%; 
+      background:linear-gradient(135deg,#9900ff,#ff00c8); 
+      border-radius:8px; 
+      transition: width .12s linear;
+      box-shadow:0 0 14px #ff00e6AA;
+      
+    }
+
+    .time-row { 
+      display:flex; 
+      justify-content:space-between; 
+      font-size:13px; 
+      opacity:0.85; 
+      margin-top:6px; }
+
+    .playlist { 
+      max-height:300px; 
+      overflow:auto; 
+      margin-top:12px;
+      border-top:1px solid #333; 
+      padding-top:10px;
+      }
+    .song-item { 
+      padding:10px; 
+      background:#111; 
+      margin-bottom:8px; 
+      border-radius:8px; 
+      cursor:pointer; 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center;
+      }
+    .song-item:hover { background:#222; }
+    .song-meta { 
+      display:flex; 
+      flex-direction:column; 
+      gap:2px; }
+    .song-title { font-size:15px; }
+    .song-artist { font-size:12px; opacity:0.65; }
+
+    @media (max-width:880px){
+      .container{grid-template-columns:1fr; 
+      padding-bottom:40px;}
+      .side{order:2;margin-top:10px;}
+    }
+    .playlist { height: calc(100vh - 250px); }
+.menu-panel {
+    position: absolute;
+    top: 55px;        /* supaya dekat tombol */
+    left: 12px;       /* biar nempel kiri */
+    width: 150px;
+    background: rgba(0,0,0,0.48);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+
+    /* GARIS PEMBATAS MENU */
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    padding: 8px 0;
+    display: none;
+    z-index: 9999;
+}
+
+.menu-item {
+    padding: 12px 16px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.15); /* GARIS ANTAR ITEM */
+}
+
+.menu-item:last-child {
+    border-bottom: none; /* item terakhir tanpa garis */
+}
+
+.menu-item:hover {
+    background: rgba(255,255,255,0.10);
+}
+.menu-btn {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.menu-btn:focus,
+.menu-btn:active {
+    outline: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<header class="brand">🎧 CyberZain-MUSIC</header>
+
+<div class="container">
+  <aside class="side">
+    <input type="text" id="searchSong" placeholder="Cari lagu atau artis..." oninput="filterSongs()" />
+    <select id="songSelect" onchange="onSelectChange()">
+        <option value="">— Pilih Lagu —</option>
+    </select>
+  <div class="player">   <!-- Tombol Titik Tiga -->
+<button id="menuBtn" class="menu-btn">⋮</button>
+<div id="menuPanel" class="menu-panel">
+    <div class="menu-item" id="downloadMusic">Download Music</div>
+    <div class="menu-item" id="speedControl">Kecepatan Music</div>
+    <div class="menu-item" id="contactOwner">Hubungi Pemilik</div>
+</div>
+    <div class="cd-box">
+      <div id="cd" class="cd" style="background-image: url('https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg')"></div>
+    </div>
+    <div class="visualizer" id="visualizer">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div class="yt-info">
+      <h2 id="nowTitle">Tidak ada lagu diputar</h2>
+      <p id="nowArtist">—</p>
+    </div>
+    <div class="yt-bar" id="seekBar"><div id="progress"></div></div>
+    <div class="time-row"><span id="current">0:00</span><span id="duration">0:00</span></div>
+    <div class="controls">
+      <button id="prevBtn" title="Previous">⏮</button>
+      <button id="playBtn" title="Play/Pause">▶</button>
+      <button id="nextBtn" title="Next">⏭</button>
+    </div>
+    <audio id="audioPlayer" preload="metadata"></audio>
+  </div>
+
+    <button class="btn" id="toggleLoop">Mode: Mengganti Music Selanjutnya</button>
+    <div class="playlist" id="playlistBox" aria-live="polite"></div>
+  </aside>
+</div>
+
+<script>
+const songs = {
+  0: { audio: "",
+       image: "https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg", 
+       title: "Music not found", 
+       artist: "Not artist", 
+       views: 0 },
+  1: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Bintang%205.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+       title: "Bintang 5", 
+       artist: "Tenxi & Jemsii", 
+       views: 21300000 },
+  2: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/(Sakit%20Dadaku).mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Sakit%20dadaku.jpg", 
+       title: "Garam & Madu (Sakit Dadaku)", 
+       artist: "Tenxi",
+       views: 250600000},
+  3: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/bergema%20sampai%20selamanya.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/nadhif.jpg", 
+       title: "Bergema Sampai Selamanya", 
+       artist: "Nadhif Basalamah",
+       views: 90100000},
+  4: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Surat%20starla.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Virgoun.png", 
+       title: "Surat Cinta Untuk Starla", 
+       artist: "Virgoun",
+       views: 658900000},
+  5: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/SO%20ASU.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/SO%20ASU.png", 
+       title: "SO ASU", 
+       artist: "Naykilla",
+       views: 5820000},
+  6: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/mejikuhibiniu.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mejikuhibiniu.jpg", 
+       title: "Mejikuhibiniu", 
+       artist: "Tenxi, Suisei & Jemsii",
+       views: 68400000},
+  7: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/penjaga%20hati.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/penjaga%20hti.jpg", 
+       title: "Penjaga Hati", 
+       artist: "Nadhif Basalamah",
+       views: 286500000},
+  8: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Aku%20Dah%20Lupa.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Aku%20Dah%20Lupa.jpg", 
+       title: "Aku Dah Lupa", 
+       artist: "MikkyZia",
+       views: 90300000},
+  9: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Mangu.mp3", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mangu.jpg", 
+       title: "Mangu", 
+       artist: "Fourtwnty",
+       views: 305700000},
+  10: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Kasih%20Aba%20Aba.mp3",     image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/kasih%20aba%20aba.jpg", 
+        title: "Kasih Aba Aba", 
+        artist: "Naykilla, Tenxi & Jemsii",
+        views: 77200000},
+  11: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Berubah.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Berubah.jpg", 
+        title: "Berubah", 
+        artist: "Tenxi & Jemsii",
+        views: 10600000},
+  12: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Oh%20no,%20I%20like%20you.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Oh%20no%2CI%20like%20you.jpg", 
+        title: "Oh no, I like you", 
+        artist: "Auric Veil",
+        views: 6440000
+  },
+  13: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/die%20with%20a%20smile.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/die%20with%20a%20smile.jpg", 
+        title: "Die With A Smile", 
+        artist: "Lady Gaga",
+        views: 2800000000},
+  14: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Kangen.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Kangen.jpg", 
+        title: "Kangen", 
+        artist: "DEWA 19",
+        views: 211600000},
+  15: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/That%20Smile%20is%20a%20Trap.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/That%20smile%20is%20a%20trap.jpg", 
+        title: "That Smile Is A Trap", 
+        artist: "Auric Veil",
+        views: 1800000},
+  16: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Bintang%20di%20Surga.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/NoahBintangdiSurga.jpg", 
+        title: "Bintang Di Surga", 
+        artist: "NOAH",
+        views: 143700000},
+  17: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Anugerah%20Terindah.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Anigrah%20Terindah.jpg", 
+        title: "Anugrah Terindah", 
+        artist: "Andmesh",
+        views: 257800000},
+  18: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Aku%20Milikmu.mp3",     
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0730.jpeg", 
+        title: "Aku Milikmu", 
+        artist: "DEWA 19",
+        views: 11410000},
+  19: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Pupus.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0731.jpeg", 
+        title: "Pupus", 
+        artist: "DEWA 19",
+        views: 181600000},
+  20: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Separuh%20Nafas.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0732.jpeg", 
+        title: "Separuh Nafasku", 
+        artist: "DEWA 19",
+        views: 70600000},
+  21: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Somewhere%20Only%20We%20Know.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/somewhere1.jpg", 
+        title: "Somewhere Only We Know", 
+        artist: "Gustixa",
+        views: 106700000},
+   22: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/hoRRReg.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "hoRRReg", 
+        artist: "Tenxi, Naufal Syachreza & Jemsii",
+        views: 10400000},
+   23: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/SENCY.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0733.webp", 
+        title: "SENCY", 
+        artist: "dia & Tenxi",
+        views: 226000},
+   24: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Puting%20Beliung.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Puting Beliung (feat. dia)", 
+        artist: "Tenxi, Josua Natanael & Jemsii",
+        views:1900000},
+   25: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/1%2010.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0734.jpeg", 
+        title: "1/10 (feat. RYO)", 
+        artist: "Tenxi & RYO"
+        ,
+        views: 1400000
+   },
+   26: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/attached.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0735.jpeg", 
+        title: "attached", 
+        artist: "Tenxi, Anangga & Suisei",
+        views: 1630000
+   },
+  27: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Paling%20Sabi.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Paling sabi", 
+        artist: "Tenxi, RYO, dia & Jemsii",
+        views: 989300
+  },
+  28: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Coba%20Lagi.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/ubah%20lagi.jpg", 
+        title: "Coba Lagi", 
+        artist: "Tenxi & Jemsii",
+        views: 3560000
+  },
+  29: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Yodah%20ku%20Selingkuh.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Yodah ku Selingkuh", 
+        artist: "Tenxi, Lucidrari & Jemsii",
+        views: 720000
+  },
+  30: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Bayangno%20Awakmu.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Bayangno Awakmu", 
+        artist: "Tenxi & Jemsii",
+        views: 739700},
+  31: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Apa%20Lagi.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Apa Lagi", 
+        artist: "Tenxi, Anangga & Jemsii",
+        views: 458500},
+  32: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Dikasih%20Akses.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Dikasih Akses", 
+        artist: "Tenxi & Jemsii",
+        views: 255100},
+  33: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Buku%20Baru%20(Interlude).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
+        title: "Buku Baru (Interlude)", 
+        artist: "Tenxi & Jemsii",
+        views: 220500},
+  33: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1%20(Stacks%20from%20All%20Sides).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1(Stacks%20from%20All%20Sides).jpg", 
+        title: "八方來財(Stacks from All Sides)", 
+        artist: "攬佬SKAI ISYOURGOD",
+        views: 136500000},
+   34: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Somewhere%20Only%20We%20Know%20(1).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/somewhere2.jpg", 
+        title: "Somewhere Only We Know", 
+        artist: "Keane",
+        views: 1600000000},
+  35: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Tor%20Monitor%20Ketua.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/artworks-tY0vRpEXFSNj-0-t500x500.png", 
+        title: "Tor Monitor Ketua", 
+        artist: "DJ SIBUK",
+        views: 712000
+  },
+  36: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/MALA.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Mala%20(6ix9ine).jpg", 
+        title: "MALA (feat. Anuel Aa)", 
+        artist: "6ix9ineK",
+        views: 393400000},
+}; 
+const playlist = Object.keys(songs).map(k => ({ id: k, ...songs[k] }));
+
+/* ------ VARIABEL PLAYER ------ */
+let currentIndex = 0;
+let isPlaying = false;
+let isLoop = false;
+
+/* ------ MODE FILTER (BARU) ------ */
+let filteredMode = false;
+let filteredList = [];
+
+/* ------ ELEMENT ------ */
+const audio = document.getElementById('audioPlayer');
+const cd = document.getElementById('cd');
+const playBtn = document.getElementById('playBtn');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const progressEl = document.getElementById('progress');
+const seekBar = document.getElementById('seekBar');
+const currText = document.getElementById('current');
+const durText = document.getElementById('duration');
+const nowTitle = document.getElementById('nowTitle');
+const nowArtist = document.getElementById('nowArtist');
+const playlistBox = document.getElementById('playlistBox');
+const songSelect = document.getElementById('songSelect');
+const searchSong = document.getElementById('searchSong');
+const toggleLoopBtn = document.getElementById('toggleLoop');
+const visualBars = document.querySelectorAll('.bar');
+
+/* ------ RENDER PLAYLIST ------ */
+function renderPlaylist(list) {
+  playlistBox.innerHTML = "";
+  songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
+  function formatViews(v) {
+  if (!v) return "0 pemutaran";
+   if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
+  if (v >= 1000000) return (v / 1000000).toFixed(1) + " jt pemutaran";
+  if (v >= 1000) return (v / 1000).toFixed(0) + " rb pemutaran";
+  return v + "x diputar";
+}
+
+  list.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'song-item';
+    div.dataset.index = i;
+
+    div.innerHTML = `
+      <div class="song-meta">
+        <div class="song-title">${s.title}</div>
+        <div class="song-artist">${s.artist}</div>
+      </div>
+
+      <div class="song-views" 
+           style="font-size:12px; opacity:0.6; white-space:nowrap;">
+        ${formatViews(s.views || 0)}
+      </div>
+    `;
+
+    div.addEventListener('click', () => {
+      loadSongByIndex(i);
+      playAudio();
+    });
+
+    playlistBox.appendChild(div);
+
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = `${s.title} - ${s.artist}`;
+    songSelect.appendChild(opt);
+  });
+}
+// ===== MENU BUTTON =====
+document.addEventListener("DOMContentLoaded", () => {
+
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    // Buka / tutup menu
+    menuBtn.addEventListener("click", () => {
+        menuPanel.style.display =
+            menuPanel.style.display === "block" ? "none" : "block";
+    });
+
+    // Klik di luar → menu tertutup
+    document.addEventListener("click", (e) => {
+        if (!menuBtn.contains(e.target) && !menuPanel.contains(e.target)) {
+            menuPanel.style.display = "none";
+        }
+    });
+
+});
+
+// ===== DOWNLOAD MUSIC =====
+document.getElementById("downloadMusic").addEventListener("click", () => {
+    const current = playlist[currentIndex];
+
+    const a = document.createElement("a");
+    a.href = current.audio;
+    a.download = current.title + ".mp3";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+});
+
+// ===== KECEPATAN MUSIC =====
+document.getElementById("speedControl").addEventListener("click", () => {
+    const speed = prompt("Masukkan kecepatan music", audio.playbackRate);
+    if (speed) {
+        audio.playbackRate = parseFloat(speed);
+    }
+});
+
+// ===== HUBUNGI PEMILIK =====
+document.getElementById("contactOwner").addEventListener("click", () => {
+        window.location.href = "https://wa.me/6285700711112?text=Halo%20saya%20ingin%20menghubungi%20Anda.";
+    });
+/* Load song */
+/* ------ LOAD LAGU ------ */
+function loadSongByIndex(i) {
+  currentIndex = i;
+
+  const list = filteredMode ? filteredList : playlist;
+  const s = list[currentIndex];
+
+  audio.src = s.audio;
+  cd.style.backgroundImage = `url('${s.image}')`;
+  nowTitle.textContent = s.title;
+  nowArtist.textContent = s.artist;
+
+  highlightPlaying();
+}
+
+/* ------ SELECT DROPDOWN ------ */
+function onSelectChange() {
+  const id = songSelect.value;
+  if (!id) return;
+
+  filteredMode = false;
+  const idx = playlist.findIndex(p => String(p.id) === id);
+
+  if (idx !== -1) {
+    loadSongByIndex(idx);
+    playAudio();
+  }
+}
+
+/* ------ PLAY / PAUSE ------ */
+function playAudio() {
+  if (!audio.src) loadSongByIndex(0);
+
+  audio.play().then(() => {
+    isPlaying = true;
+    playBtn.textContent = "𝗜𝗜";
+    cd.classList.add('playing');
+  });
+}
+
+function pauseAudio() {
+  audio.pause();
+  isPlaying = false;
+  playBtn.textContent = "▶";
+  cd.classList.remove('playing');
+}
+
+playBtn.addEventListener('click', () => {
+  isPlaying ? pauseAudio() : playAudio();
+});
+
+/* ------ NEXT / PREV ------ */
+nextBtn.addEventListener('click', () => {
+  const list = filteredMode ? filteredList : playlist;
+  currentIndex = (currentIndex + 1) % list.length;
+  loadSongByIndex(currentIndex);
+  playAudio();
+});
+
+prevBtn.addEventListener('click', () => {
+  const list = filteredMode ? filteredList : playlist;
+  currentIndex = (currentIndex - 1 + list.length) % list.length;
+  loadSongByIndex(currentIndex);
+  playAudio();
+});
+
+/* Loop toggle */
+/* ------ LOOP TOGGLE ------ */
+toggleLoopBtn.addEventListener('click', () => {
+  isLoop = !isLoop;
+  audio.loop = isLoop;
+  toggleLoopBtn.textContent = `Mode: ${isLoop ? 'Music Akan Diulang Otomatis' : 'Mengganti Music Selanjutnya'}`;
+});
+
+/* ------ PROGRESS BAR ------ */
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration) {
+    const w = (audio.currentTime / audio.duration) * 100;
+    progressEl.style.width = w + "%";
+    currText.textContent = formatTime(audio.currentTime);
+    durText.textContent = formatTime(audio.duration);
+  }
+});
+
+seekBar.addEventListener('click', (e) => {
+  if (!audio.duration) return;
+  const r = seekBar.getBoundingClientRect();
+  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+});
+
+/* ------ AUTO NEXT (MENGIKUTI SEARCH) ------ */
+audio.addEventListener('ended', () => {
+  cd.classList.remove('playing');
+  isPlaying = false;
+  playBtn.textContent = "▶";
+
+  if (audio.loop) return;
+
+  const list = filteredMode ? filteredList : playlist;
+
+  currentIndex++;
+  if (currentIndex >= list.length) return;
+
+  loadSongByIndex(currentIndex);
+  playAudio();
+});
+
+/* Helpers */
+/* ------ SEARCH (FILTER MODE) ------ */
+function filterSongs() {
+  const q = searchSong.value.trim().toLowerCase();
+
+  if (q === "") {
+    filteredMode = false;
+    renderPlaylist(playlist);
+    highlightPlaying();
+    return;
+  }
+
+  filteredMode = true;
+  filteredList = playlist
+    .map((s, i) => ({ ...s, index: i }))
+    .filter(s => (s.title + " " + s.artist).toLowerCase().includes(q));
+
+  playlistBox.innerHTML = "";
+  filteredList.forEach((s, pos) => {
+    const div = document.createElement("div");
+    div.className = "song-item";
+    div.dataset.index = pos;
+    div.innerHTML = `
+      <div class="song-meta">
+        <div class="song-title">${s.title}</div>
+        <div class="song-artist">${s.artist}</div>
+      </div>
+      <div style="opacity:.6;font-size:12px">#${s.id}</div>
+    `;
+
+    div.addEventListener("click", () => {
+      currentIndex = pos;
+      loadSongByIndex(pos);
+      playAudio();
+    });
+
+    playlistBox.appendChild(div);
+  });
+}
+
+/* ------ FORMAT WAKTU ------ */
+function formatTime(s) {
+  if (!s || isNaN(s)) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec < 10 ? '0' + sec : sec}`;
+}
+
+/* ------ HIGHLIGHT LAGU ------ */
+function highlightPlaying() {
+  const items = playlistBox.querySelectorAll('.song-item');
+  items.forEach(it => it.style.outline = "");
+
+  const item = playlistBox.querySelector(`.song-item[data-index="${currentIndex}"]`);
+  if (item) {
+    item.style.outline = "2px solid rgba(255,255,255,0.1)";
+    item.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+/* ------ VISUALIZER ------ */
+setInterval(() => {
+  if (!isPlaying) {
+    visualBars.forEach(b => b.style.height = '6px');
+    return;
+  }
+  visualBars.forEach(b => b.style.height = (6 + Math.random() * 34) + 'px');
+}, 140);
+
+/* ------ INIT ------ */
+renderPlaylist(playlist);
+loadSongByIndex(0);
+</script>
+</body>
+</html>
