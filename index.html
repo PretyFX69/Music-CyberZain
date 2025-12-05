@@ -329,7 +329,7 @@
 
 <script>
 const songs = {
-  0: { audio: "",
+  0: { audio: "https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg",
        image: "https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg", 
        title: "Music not found", 
        artist: "Not artist", 
@@ -505,27 +505,32 @@ const songs = {
         title: "Buku Baru (Interlude)", 
         artist: "Tenxi & Jemsii",
         views: 220500},
-  33: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1%20(Stacks%20from%20All%20Sides).mp3", 
+  34: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1%20(Stacks%20from%20All%20Sides).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1(Stacks%20from%20All%20Sides).jpg", 
         title: "八方來財(Stacks from All Sides)", 
         artist: "攬佬SKAI ISYOURGOD",
         views: 136500000},
-   34: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Somewhere%20Only%20We%20Know%20(1).mp3", 
+   35: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Somewhere%20Only%20We%20Know%20(1).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/somewhere2.jpg", 
         title: "Somewhere Only We Know", 
         artist: "Keane",
         views: 1600000000},
-  35: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Tor%20Monitor%20Ketua.mp3", 
+  36: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Tor%20Monitor%20Ketua.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/artworks-tY0vRpEXFSNj-0-t500x500.png", 
         title: "Tor Monitor Ketua", 
         artist: "DJ SIBUK",
         views: 712000
   },
-  36: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/MALA.mp3", 
+  37: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/MALA.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Mala%20(6ix9ine).jpg", 
         title: "MALA (feat. Anuel Aa)", 
-        artist: "6ix9ineK",
+        artist: "6ix9ine",
         views: 393400000},
+  38: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Amin%20Paling%20Serius.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/amin%20paling%20serius.jpg", 
+        title: "Amin Paling Serius", 
+        artist: "Sal Priadi & Nadin Amizah",
+        views: 58500000},
 }; 
 const playlist = Object.keys(songs).map(k => ({ id: k, ...songs[k] }));
 
@@ -578,7 +583,6 @@ function renderPlaylist(list) {
         <div class="song-title">${s.title}</div>
         <div class="song-artist">${s.artist}</div>
       </div>
-
       <div class="song-views" 
            style="font-size:12px; opacity:0.6; white-space:nowrap;">
         ${formatViews(s.views || 0)}
@@ -777,6 +781,13 @@ function filterSongs() {
     highlightPlaying();
     return;
   }
+  function formatViews(v) {
+  if (!v) return "0 pemutaran";
+  if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
+  if (v >= 1000000) return (v / 1000000).toFixed(1) + " jt pemutaran";
+  if (v >= 1000) return (v / 1000).toFixed(0) + " rb pemutaran";
+  return v + "x diputar";
+}
 
   filteredMode = true;
   filteredList = playlist
@@ -784,16 +795,21 @@ function filterSongs() {
     .filter(s => (s.title + " " + s.artist).toLowerCase().includes(q));
 
   playlistBox.innerHTML = "";
+
   filteredList.forEach((s, pos) => {
     const div = document.createElement("div");
     div.className = "song-item";
     div.dataset.index = pos;
+
     div.innerHTML = `
       <div class="song-meta">
         <div class="song-title">${s.title}</div>
         <div class="song-artist">${s.artist}</div>
       </div>
-      <div style="opacity:.6;font-size:12px">#${s.id}</div>
+      <div class="song-views" 
+           style="font-size:12px; opacity:0.6; white-space:nowrap;">
+        ${formatViews(s.views || 0)}
+      </div>
     `;
 
     div.addEventListener("click", () => {
@@ -805,7 +821,6 @@ function filterSongs() {
     playlistBox.appendChild(div);
   });
 }
-
 /* ------ FORMAT WAKTU ------ */
 function formatTime(s) {
   if (!s || isNaN(s)) return "0:00";
