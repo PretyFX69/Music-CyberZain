@@ -621,14 +621,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ===== DOWNLOAD MUSIC =====
 document.getElementById("downloadMusic").addEventListener("click", () => {
-    const current = playlist[currentIndex];
+    let currentSong;
+
+    if (filteredMode && filteredList.length > 0) {
+        // Ambil lagu yang pertama di hasil search (filteredList)
+        currentSong = filteredList[currentIndex] || filteredList[0];
+    } else {
+        // Ambil lagu biasa dari playlist
+        currentSong = playlist[currentIndex];
+    }
+
+    if (!currentSong || !currentSong.audio) {
+        alert("Tidak ada lagu untuk di-download!");
+        return;
+    }
 
     const a = document.createElement("a");
-    a.href = current.audio;
-    a.download = current.title + ".mp3";
+    a.href = currentSong.audio;
+    a.download = currentSong.title + ".mp3";
     document.body.appendChild(a);
     a.click();
     a.remove();
+
+    alert(`Download: ${currentSong.title} - ${currentSong.artist}`);
 });
 
 // ===== KECEPATAN MUSIC =====
