@@ -230,7 +230,7 @@
     .playlist { height: calc(100vh - 250px); }
 .menu-panel {
     position: absolute;
-    top: 55px;        /* supaya dekat tombol */
+    top: 60px;        /* supaya dekat tombol */
     left: 12px;       /* biar nempel kiri */
     width: 150px;
     background: rgba(0,0,0,0.48);
@@ -279,6 +279,36 @@
     background: none !important;
     box-shadow: none !important;
 }
+.submenu {
+        position: absolute;
+    top: 80px;        /* supaya dekat tombol */
+    left: 150px;       /* biar nempel kiri */
+    width: 150px;
+    background: rgba(0,0,0,0.48);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+
+    /* GARIS PEMBATAS MENU */
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    padding: 8px 0;
+    display: none;
+    z-index: 9999;
+}
+
+.submenu-item {
+    padding: 12px 16px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.submenu-item:hover {
+    background: rgba(255,255,255,0.1);
+}
 </style>
 </head>
 <body>
@@ -294,11 +324,30 @@
         <option value="">— Pilih Lagu —</option>
     </select>
   <div class="player">   <!-- Tombol Titik Tiga -->
+<!-- Menu Utama -->
 <button id="menuBtn" class="menu-btn">⋮</button>
 <div id="menuPanel" class="menu-panel">
     <div class="menu-item" id="downloadMusic">Download Music</div>
     <div class="menu-item" id="speedControl">Kecepatan Music</div>
+    <div class="menu-item" id="qualityMenuBtn">Kualitas Audio ▸</div>
+    <div class="menu-item" id="sleepTimeBtn">
+  Sleep Time ▸
+</div>
     <div class="menu-item" id="contactOwner">Hubungi Pemilik</div>
+    <div id="qualitySubmenu" class="submenu">
+        <div class="submenu-item" data-quality="96">96 kbps</div>
+        <div class="submenu-item" data-quality="128">128 kbps</div>
+        <div class="submenu-item" data-quality="192">192 kbps</div>
+        <div class="submenu-item" data-quality="320">320 kbps</div>
+    </div>    <!-- Submenu Sleep Timer -->
+<!-- SUBMENU Sleep Time -->
+<div id="sleepSubmenu" class="submenu">
+    <div class="submenu-item" data-time="5">5 menit</div>
+    <div class="submenu-item" data-time="10">10 menit</div>
+    <div class="submenu-item" data-time="15">15 menit</div>
+    <div class="submenu-item" data-time="30">30 menit</div>
+     <div class="submenu-item" data-time="60">1 jam</div>
+</div>
 </div>
     <div class="cd-box">
       <div id="cd" class="cd" style="background-image: url('https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg')"></div>
@@ -546,6 +595,21 @@ const songs = {
         title: "Timeless", 
         artist: "The Weeknd & Playboi Carti",
         views: 414500000},
+  42: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Blinding%20Lights.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/The_Weeknd_-_Blinding_Lights.png", 
+        title: "Blinding Light", 
+        artist: "The Weeknd",
+        views: 3400000000},
+  43: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Save%20Your%20Tears.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Save%20your%20Tears.jpg", 
+        title: "Save Your Tears", 
+        artist: "The Weeknd",
+        views: 3000000000},
+  44: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Die%20For%20You%20(Remix).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/die%20for%20you.jpg", 
+        title: "Die For You (Remix)", 
+        artist: "The Weeknd & Ariana Grande",
+        views: 777300000},
 }; 
 const playlist = Object.keys(songs).map(k => ({ id: k, ...songs[k] }));
 
@@ -576,7 +640,57 @@ const searchSong = document.getElementById('searchSong');
 const toggleLoopBtn = document.getElementById('toggleLoop');
 const visualBars = document.querySelectorAll('.bar');
 
-/* ------ RENDER PLAYLIST ------ */
+const qualityMenuBtn = document.getElementById("qualityMenuBtn");
+const qualitySub = document.getElementById("qualitySubmenu");
+
+// Toggle submenu
+qualityMenuBtn.addEventListener("click", () => {
+    qualitySub.style.display =
+        qualitySub.style.display === "block" ? "none" : "block";
+});
+
+// Pilihan kualitas audio
+qualitySub.querySelectorAll(".submenu-item").forEach(item => {
+    item.addEventListener("click", () => {
+        const q = item.dataset.quality;
+
+        alert("Kualitas audio diatur ke: " + q + " kbps");
+
+        // Kalau nanti kamu punya file berbeda per bitrate:
+        // audio.src = currentSong[`audio_${q}`];
+
+        qualitySub.style.display = "none";
+    });
+});
+const sleepBtn = document.getElementById("sleepTimeBtn");
+const sleepSub = document.getElementById("sleepSubmenu");
+
+let sleepTimer; // variabel global untuk timer sleep
+
+// Toggle submenu sleep time
+sleepBtn.addEventListener("click", () => {
+    sleepSub.style.display =
+        sleepSub.style.display === "block" ? "none" : "block";
+});
+
+// Pilih waktu sleep
+sleepSub.querySelectorAll(".submenu-item").forEach(item => {
+    item.addEventListener("click", () => {
+        const minutes = parseInt(item.dataset.time);
+        if (sleepTimer) clearTimeout(sleepTimer);
+
+        sleepTimer = setTimeout(() => {
+            audio.pause();
+            isPlaying = false;
+            playBtn.textContent = "▶";
+            cd.classList.remove('playing');
+            alert(`Waktu ${minutes} menit telah selesai. Musik berhenti.`);
+        }, minutes * 60 * 1000);
+
+        alert(`Sleep Timer diatur selama ${minutes} menit`);
+        sleepSub.style.display = "none";
+    });
+});
 function renderPlaylist(list) {
   playlistBox.innerHTML = "";
   songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
@@ -620,7 +734,7 @@ function renderPlaylist(list) {
 // ===== MENU BUTTON =====
 document.addEventListener("DOMContentLoaded", () => {
 
-    const menuBtn = document.getElementById("menuBtn");
+        const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
 
     // Buka / tutup menu
@@ -637,7 +751,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
-
 // ===== DOWNLOAD MUSIC =====
 document.getElementById("downloadMusic").addEventListener("click", () => {
     let currentSong;
