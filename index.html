@@ -644,7 +644,9 @@ const qualityMenuBtn = document.getElementById("qualityMenuBtn");
 const qualitySub = document.getElementById("qualitySubmenu");
 
 // Toggle submenu
+// Tutup semua submenu saat membuka salah satunya
 qualityMenuBtn.addEventListener("click", () => {
+    sleepSub.style.display = "none";  // tutup sleep
     qualitySub.style.display =
         qualitySub.style.display === "block" ? "none" : "block";
 });
@@ -669,6 +671,7 @@ let sleepTimer; // variabel global untuk timer sleep
 
 // Toggle submenu sleep time
 sleepBtn.addEventListener("click", () => {
+    qualitySub.style.display = "none"; // tutup quality
     sleepSub.style.display =
         sleepSub.style.display === "block" ? "none" : "block";
 });
