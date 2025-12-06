@@ -353,9 +353,9 @@
 
     <!-- Menu Equalizer -->
     <div id="equalizerSubmenu" class="submenu">
-        <div class="submenu-item" data-eq="bass">Bass</div>
-        <div class="submenu-item" data-eq="treble">Treble</div>
-        <div class="submenu-item" data-eq="flat">Flat</div>
+        <div class="submenu-item" data-eq="bass">Bass (sedang perbaikan)</div>
+        <div class="submenu-item" data-eq="treble">Treble (sedang perbaikan)</div>
+        <div class="submenu-item" data-eq="flat">Flat (sedang perbaikan)</div>
     </div>
 
     <!-- Menu Report -->
@@ -818,13 +818,25 @@ document.getElementById("downloadMusic").addEventListener("click", () => {
 });
 qualitySub.querySelectorAll(".submenu-item").forEach(item => {
     item.addEventListener("click", () => {
-        const q = item.dataset.quality;
+        const q = item.dataset.quality; // "96", "128", "192", "320"
+        // ambil lagu saat ini (filtered mode atau playlist biasa)
+        const s = filteredMode && filteredList.length ? filteredList[currentIndex] : playlist[currentIndex];
+
+        // ambil file sesuai kualitas, fallback ke s.audio jika tidak ada
+        const file = (s && (s[`audio_${q}`] || s.audio)) || "";
+
+        if (!file) {
+            alert("File audio untuk kualitas " + q + " kbps tidak tersedia untuk lagu ini.");
+            qualitySub.style.display = "none";
+            return;
+        }
+
+        console.log("Switch quality ->", q, file);
+        audio.src = file;
+        audio.load();
+        audio.play().catch(err => console.log("Play error after switching quality:", err));
 
         alert("Kualitas audio diatur ke: " + q + " kbps");
-
-        // Kalau nanti kamu punya file berbeda per bitrate:
-        // audio.src = currentSong[`audio_${q}`];
-
         qualitySub.style.display = "none";
     });
 });
