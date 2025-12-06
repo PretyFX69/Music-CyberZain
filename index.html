@@ -330,24 +330,36 @@
     <div class="menu-item" id="downloadMusic">Download Music</div>
     <div class="menu-item" id="speedControl">Kecepatan Music</div>
     <div class="menu-item" id="qualityMenuBtn">Kualitas Audio ▸</div>
-    <div class="menu-item" id="sleepTimeBtn">
-  Sleep Time ▸
-</div>
+    <div class="menu-item" id="sleepTimeBtn">Sleep Time ▸</div>
+        <div class="menu-item" id="equalizerBtn">Equalizer ▸</div>
     <div class="menu-item" id="contactOwner">Hubungi Pemilik</div>
+
+    <!-- Submenu Kualitas Audio -->
     <div id="qualitySubmenu" class="submenu">
         <div class="submenu-item" data-quality="96">96 kbps</div>
         <div class="submenu-item" data-quality="128">128 kbps</div>
         <div class="submenu-item" data-quality="192">192 kbps</div>
         <div class="submenu-item" data-quality="320">320 kbps</div>
-    </div>    <!-- Submenu Sleep Timer -->
-<!-- SUBMENU Sleep Time -->
-<div id="sleepSubmenu" class="submenu">
-    <div class="submenu-item" data-time="5">5 menit</div>
-    <div class="submenu-item" data-time="10">10 menit</div>
-    <div class="submenu-item" data-time="15">15 menit</div>
-    <div class="submenu-item" data-time="30">30 menit</div>
-     <div class="submenu-item" data-time="60">1 jam</div>
-</div>
+    </div>
+
+    <!-- Submenu Sleep Timer -->
+    <div id="sleepSubmenu" class="submenu">
+        <div class="submenu-item" data-time="5">5 menit</div>
+        <div class="submenu-item" data-time="10">10 menit</div>
+        <div class="submenu-item" data-time="15">15 menit</div>
+        <div class="submenu-item" data-time="30">30 menit</div>
+        <div class="submenu-item" data-time="60">1 jam</div>
+    </div>
+
+    <!-- Menu Equalizer -->
+    <div id="equalizerSubmenu" class="submenu">
+        <div class="submenu-item" data-eq="bass">Bass</div>
+        <div class="submenu-item" data-eq="treble">Treble</div>
+        <div class="submenu-item" data-eq="flat">Flat</div>
+    </div>
+
+    <!-- Menu Report -->
+    <div class="menu-item" id="reportBtn">Report Lagu</div>
 </div>
     <div class="cd-box">
       <div id="cd" class="cd" style="background-image: url('https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg')"></div>
@@ -611,18 +623,20 @@ const songs = {
         artist: "The Weeknd & Ariana Grande",
         views: 777300000},
 }; 
+/* ======================
+   VARIABEL GLOBAL
+====================== */
 const playlist = Object.keys(songs).map(k => ({ id: k, ...songs[k] }));
 
-/* ------ VARIABEL PLAYER ------ */
 let currentIndex = 0;
 let isPlaying = false;
 let isLoop = false;
-
-/* ------ MODE FILTER (BARU) ------ */
 let filteredMode = false;
 let filteredList = [];
 
-/* ------ ELEMENT ------ */
+/* ----------------------
+   ELEMENT DOM
+---------------------- */
 const audio = document.getElementById('audioPlayer');
 const cd = document.getElementById('cd');
 const playBtn = document.getElementById('playBtn');
@@ -640,60 +654,19 @@ const searchSong = document.getElementById('searchSong');
 const toggleLoopBtn = document.getElementById('toggleLoop');
 const visualBars = document.querySelectorAll('.bar');
 
+const menuBtn = document.getElementById("menuBtn");
+const menuPanel = document.getElementById("menuPanel");
 const qualityMenuBtn = document.getElementById("qualityMenuBtn");
 const qualitySub = document.getElementById("qualitySubmenu");
-
-// Toggle submenu
-// Tutup semua submenu saat membuka salah satunya
-qualityMenuBtn.addEventListener("click", () => {
-    sleepSub.style.display = "none";  // tutup sleep
-    qualitySub.style.display =
-        qualitySub.style.display === "block" ? "none" : "block";
-});
-
-// Pilihan kualitas audio
-qualitySub.querySelectorAll(".submenu-item").forEach(item => {
-    item.addEventListener("click", () => {
-        const q = item.dataset.quality;
-
-        alert("Kualitas audio diatur ke: " + q + " kbps");
-
-        // Kalau nanti kamu punya file berbeda per bitrate:
-        // audio.src = currentSong[`audio_${q}`];
-
-        qualitySub.style.display = "none";
-    });
-});
 const sleepBtn = document.getElementById("sleepTimeBtn");
 const sleepSub = document.getElementById("sleepSubmenu");
+const equalizerBtn = document.getElementById("equalizerBtn");
+const equalizerSubmenu = document.getElementById("equalizerSubmenu");
+const reportBtn = document.getElementById("reportBtn");
 
-let sleepTimer; // variabel global untuk timer sleep
-
-// Toggle submenu sleep time
-sleepBtn.addEventListener("click", () => {
-    qualitySub.style.display = "none"; // tutup quality
-    sleepSub.style.display =
-        sleepSub.style.display === "block" ? "none" : "block";
-});
-
-// Pilih waktu sleep
-sleepSub.querySelectorAll(".submenu-item").forEach(item => {
-    item.addEventListener("click", () => {
-        const minutes = parseInt(item.dataset.time);
-        if (sleepTimer) clearTimeout(sleepTimer);
-
-        sleepTimer = setTimeout(() => {
-            audio.pause();
-            isPlaying = false;
-            playBtn.textContent = "▶";
-            cd.classList.remove('playing');
-            alert(`Waktu ${minutes} menit telah selesai. Musik berhenti.`);
-        }, minutes * 60 * 1000);
-
-        alert(`Sleep Timer diatur selama ${minutes} menit`);
-        sleepSub.style.display = "none";
-    });
-});
+/* ======================
+   PLAYLIST RENDER & UTILS
+====================== */
 function renderPlaylist(list) {
   playlistBox.innerHTML = "";
   songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
@@ -734,27 +707,90 @@ function renderPlaylist(list) {
     songSelect.appendChild(opt);
   });
 }
-// ===== MENU BUTTON =====
-document.addEventListener("DOMContentLoaded", () => {
+function highlightPlaying() {
+    const items = playlistBox.querySelectorAll('.song-item');
+    items.forEach(it => it.style.outline = "");
 
-        const menuBtn = document.getElementById("menuBtn");
-    const menuPanel = document.getElementById("menuPanel");
+    const item = playlistBox.querySelector(`.song-item[data-index="${currentIndex}"]`);
+    if (item) {
+        item.style.outline = "2px solid rgba(255,255,255,0.1)";
+        item.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
 
-    // Buka / tutup menu
-    menuBtn.addEventListener("click", () => {
-        menuPanel.style.display =
-            menuPanel.style.display === "block" ? "none" : "block";
+function formatTime(s) {
+    if (!s || isNaN(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec < 10 ? '0'+sec : sec}`;
+}
+
+/* ======================
+   AUDIO CONTEXT + EQUALIZER (DIPINDAH KE INIT PLAY)
+====================== */
+let audioCtx, track;
+let bassEQ, midEQ, trebleEQ;
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        track = audioCtx.createMediaElementSource(audio);
+
+        bassEQ = audioCtx.createBiquadFilter();
+        bassEQ.type = 'lowshelf';
+        bassEQ.frequency.value = 250;
+        bassEQ.gain.value = 0;
+
+        midEQ = audioCtx.createBiquadFilter();
+        midEQ.type = 'peaking';
+        midEQ.frequency.value = 1000;
+        midEQ.Q.value = 1;
+        midEQ.gain.value = 0;
+
+        trebleEQ = audioCtx.createBiquadFilter();
+        trebleEQ.type = 'highshelf';
+        trebleEQ.frequency.value = 4000;
+        trebleEQ.gain.value = 0;
+
+        track.connect(bassEQ);
+        bassEQ.connect(midEQ);
+        midEQ.connect(trebleEQ);
+        trebleEQ.connect(audioCtx.destination);
+    }
+}
+
+function resumeAudioCtx() {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function setEqualizer(mode) {
+    switch(mode) {
+        case 'bass':
+            bassEQ.gain.value = 15;
+            midEQ.gain.value = 0;
+            trebleEQ.gain.value = 0;
+            break;
+        case 'treble':
+            bassEQ.gain.value = 0;
+            midEQ.gain.value = 0;
+            trebleEQ.gain.value = 15;
+            break;
+        case 'flat':
+            bassEQ.gain.value = 0;
+            midEQ.gain.value = 0;
+            trebleEQ.gain.value = 0;
+            break;
+    }
+}
+
+document.querySelectorAll('#equalizerSubmenu .submenu-item').forEach(item => {
+    item.addEventListener('click', () => {
+        initAudio();
+        resumeAudioCtx();
+        const eq = item.dataset.eq;
+        setEqualizer(eq);
     });
-
-    // Klik di luar → menu tertutup
-    document.addEventListener("click", (e) => {
-        if (!menuBtn.contains(e.target) && !menuPanel.contains(e.target)) {
-            menuPanel.style.display = "none";
-        }
-    });
-
 });
-// ===== DOWNLOAD MUSIC =====
 document.getElementById("downloadMusic").addEventListener("click", () => {
     let currentSong;
 
@@ -780,7 +816,18 @@ document.getElementById("downloadMusic").addEventListener("click", () => {
 
     alert(`Download: ${currentSong.title} - ${currentSong.artist}`);
 });
+qualitySub.querySelectorAll(".submenu-item").forEach(item => {
+    item.addEventListener("click", () => {
+        const q = item.dataset.quality;
 
+        alert("Kualitas audio diatur ke: " + q + " kbps");
+
+        // Kalau nanti kamu punya file berbeda per bitrate:
+        // audio.src = currentSong[`audio_${q}`];
+
+        qualitySub.style.display = "none";
+    });
+});
 // ===== KECEPATAN MUSIC =====
 document.getElementById("speedControl").addEventListener("click", () => {
     const speed = prompt("Masukkan kecepatan music", audio.playbackRate);
@@ -788,13 +835,6 @@ document.getElementById("speedControl").addEventListener("click", () => {
         audio.playbackRate = parseFloat(speed);
     }
 });
-
-// ===== HUBUNGI PEMILIK =====
-document.getElementById("contactOwner").addEventListener("click", () => {
-        window.location.href = "https://wa.me/6285700711112?text=Halo%20saya%20ingin%20menghubungi%20Anda.";
-    });
-/* Load song */
-/* ------ LOAD LAGU ------ */
 function loadSongByIndex(i) {
   currentIndex = i;
 
@@ -808,9 +848,11 @@ function loadSongByIndex(i) {
 
   highlightPlaying();
 }
-
-/* ------ SELECT DROPDOWN ------ */
-function onSelectChange() {
+// ===== HUBUNGI PEMILIK =====
+document.getElementById("contactOwner").addEventListener("click", () => {
+        window.location.href = "https://wa.me/6285700711112?text=Halo%20saya%20ingin%20menghubungi%20Anda.";
+    });
+    function onSelectChange() {
   const id = songSelect.value;
   if (!id) return;
 
@@ -822,8 +864,20 @@ function onSelectChange() {
     playAudio();
   }
 }
+/* ======================
+   AUDIO CONTROL
+====================== */
+function playAudio() {
+    initAudio();
+    if (!audio.src) loadSongByIndex(0);
+    resumeAudioCtx();
+    audio.play().then(() => {
+        isPlaying = true;
+        playBtn.textContent = "𝗜𝗜";
+        cd.classList.add('playing');
+    }).catch(err => console.log("Audio play error:", err));
+}
 
-/* ------ PLAY / PAUSE ------ */
 function playAudio() {
   if (!audio.src) loadSongByIndex(0);
 
@@ -879,30 +933,28 @@ audio.addEventListener('timeupdate', () => {
 });
 
 seekBar.addEventListener('click', (e) => {
-  if (!audio.duration) return;
-  const r = seekBar.getBoundingClientRect();
-  audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+    if (!audio.duration) return;
+    const r = seekBar.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
 });
 
-/* ------ AUTO NEXT (MENGIKUTI SEARCH) ------ */
 audio.addEventListener('ended', () => {
-  cd.classList.remove('playing');
-  isPlaying = false;
-  playBtn.textContent = "▶";
-
-  if (audio.loop) return;
-
-  const list = filteredMode ? filteredList : playlist;
-
-  currentIndex++;
-  if (currentIndex >= list.length) return;
-
-  loadSongByIndex(currentIndex);
-  playAudio();
+    cd.classList.remove('playing');
+    isPlaying = false;
+    playBtn.textContent = "▶";
+    if (!audio.loop) {
+        const list = filteredMode ? filteredList : playlist;
+        currentIndex++;
+        if (currentIndex < list.length) {
+            loadSongByIndex(currentIndex);
+            playAudio();
+        }
+    }
 });
 
-/* Helpers */
-/* ------ SEARCH (FILTER MODE) ------ */
+/* ======================
+   SEARCH / FILTER
+====================== */
 function filterSongs() {
   const q = searchSong.value.trim().toLowerCase();
 
@@ -952,36 +1004,97 @@ function filterSongs() {
     playlistBox.appendChild(div);
   });
 }
-/* ------ FORMAT WAKTU ------ */
-function formatTime(s) {
-  if (!s || isNaN(s)) return "0:00";
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${m}:${sec < 10 ? '0' + sec : sec}`;
-}
+/* ======================
+   MENU & SUBMENU FIX
+====================== */
+document.addEventListener("DOMContentLoaded", () => {
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuPanel.style.display = menuPanel.style.display === "block" ? "none" : "block";
+    });
 
-/* ------ HIGHLIGHT LAGU ------ */
-function highlightPlaying() {
-  const items = playlistBox.querySelectorAll('.song-item');
-  items.forEach(it => it.style.outline = "");
+    const submenuMap = {
+        qualityMenuBtn: "qualitySubmenu",
+        sleepTimeBtn: "sleepSubmenu",
+        equalizerBtn: "equalizerSubmenu"
+    };
 
-  const item = playlistBox.querySelector(`.song-item[data-index="${currentIndex}"]`);
-  if (item) {
-    item.style.outline = "2px solid rgba(255,255,255,0.1)";
-    item.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-}
+    Object.keys(submenuMap).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        const submenu = document.getElementById(submenuMap[btnId]);
+        if (!btn || !submenu) return;
 
-/* ------ VISUALIZER ------ */
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelectorAll(".submenu").forEach(sm => {
+                if (sm !== submenu) sm.style.display = "none";
+            });
+            submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+        });
+    });
+
+    document.addEventListener("click", () => {
+        menuPanel.style.display = "none";
+        document.querySelectorAll(".submenu").forEach(sm => sm.style.display = "none");
+    });
+});
+
+
+
+/* ======================
+   SLEEP TIMER
+====================== */
+let sleepTimer;
+sleepSub.querySelectorAll(".submenu-item").forEach(item => {
+    item.addEventListener("click", () => {
+        const minutes = parseInt(item.dataset.time);
+        if (sleepTimer) clearTimeout(sleepTimer);
+
+        sleepTimer = setTimeout(() => {
+            audio.pause();
+            isPlaying = false;
+            playBtn.textContent = "▶";
+            cd.classList.remove('playing');
+            alert(`Waktu ${minutes} menit telah selesai. Musik berhenti.`);
+        }, minutes * 60 * 1000);
+
+        alert(`Sleep Timer diatur selama ${minutes} menit`);
+        sleepSub.style.display = "none";
+    });
+});
+
+/* ======================
+   REPORT
+====================== */
+reportBtn.addEventListener("click", () => {
+    const currentSong = filteredMode && filteredList.length > 0
+        ? filteredList[currentIndex] || filteredList[0]
+        : playlist[currentIndex];
+
+    if (!currentSong) {
+        alert("Tidak ada lagu yang diputar untuk dilaporkan!");
+        return;
+    }
+
+    const subject = encodeURIComponent(`Report lagu: ${currentSong.title}`);
+    const body = encodeURIComponent(`Saya ingin melaporkan lagu ini:\n\nJudul: ${currentSong.title}\nArtis: ${currentSong.artist}`);
+    window.open(`mailto:zainsuryo10@gmail.com?subject=${subject}&body=${body}`);
+});
+
+/* ======================
+   VISUALIZER
+====================== */
 setInterval(() => {
-  if (!isPlaying) {
-    visualBars.forEach(b => b.style.height = '6px');
-    return;
-  }
-  visualBars.forEach(b => b.style.height = (6 + Math.random() * 34) + 'px');
+    if (!isPlaying) {
+        visualBars.forEach(b => b.style.height = '6px');
+        return;
+    }
+    visualBars.forEach(b => b.style.height = (6 + Math.random() * 34) + 'px');
 }, 140);
 
-/* ------ INIT ------ */
+/* ======================
+   INIT
+====================== */
 renderPlaylist(playlist);
 loadSongByIndex(0);
 </script>
