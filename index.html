@@ -413,8 +413,10 @@
     <div class="playlist" id="playlistBox" aria-live="polite"></div>
   </aside>
 </div>
-
 <script>
+/* ======================
+   DATA LAGU (TIDAK DIUBAH)
+====================== */
 const songs = {
   0: { audio: "https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg",
        image: "https://raw.githubusercontent.com/NdikzDatabase/Database/main/Database/1762559143736-x3crbj.jpg", 
@@ -540,6 +542,7 @@ const songs = {
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Bintang5.jpg", 
         title: "Puting Beliung (feat. dia)", 
         artist: "Tenxi, Josua Natanael & Jemsii",
+        tags: ["😝🤙🏻"],
         views:1900000},
    25: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/1%2010.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG_0734.jpeg", 
@@ -592,10 +595,11 @@ const songs = {
         title: "Buku Baru (Interlude)", 
         artist: "Tenxi & Jemsii",
         views: 220500},
-  34: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1%20(Stacks%20from%20All%20Sides).mp3", 
+  34: { audio: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1%20(Stacks%20from%20All%20Sides).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/%E5%85%AB%E6%96%B9%E4%BE%86%E8%B2%A1(Stacks%20from%20All%20Sides).jpg", 
         title: "八方來財(Stacks from All Sides)", 
         artist: "攬佬SKAI ISYOURGOD",
+        tags: ["😝🤙🏻"],
         views: 136500000},
    35: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Somewhere%20Only%20We%20Know%20(1).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/somewhere2.jpg", 
@@ -612,6 +616,7 @@ const songs = {
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Mala%20(6ix9ine).jpg", 
         title: "MALA (feat. Anuel Aa)", 
         artist: "6ix9ine",
+        tags: ["😝🤙🏻"],
         views: 393400000},
   38: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Amin%20Paling%20Serius.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/amin%20paling%20serius.jpg", 
@@ -630,7 +635,8 @@ const songs = {
         views: 1200000000},
   41: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Timeless.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Timeless.jpg", 
-        title: "Timeless", 
+        title: "Timeless",
+        tags: ["😝🤙🏻"],
         artist: "The Weeknd & Playboi Carti",
         views: 414500000},
   42: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Blinding%20Lights.mp3", 
@@ -652,145 +658,243 @@ const songs = {
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Girl%20you%20Loud.jpg", 
         title: "Girl You Loud", 
         artist: "Chris Brown & Tyga",
+        tags: ["😝🤙🏻"],
         views: 35200000},
   46: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/%D0%AF%D0%B4.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/erika%20lundmoen.jpg", 
         title: "Яд", 
         artist: "Erika Lundmoen",
+        tags: ["😝🤙🏻"],
         views: 170600000},
   47: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Swimming%20Pools%20(Drank).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/SwimmingPools.jpg", 
         title: "Swimming Pools (Drank)", 
         artist: "Kendrick Lamar",
+        tags: ["😝🤙🏻"],
         views: 714700000},
   48: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/HUMBLE..mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/HUMBLE.jpg", 
         title: "HUMBLE", 
         artist: "Kendrick Lamar",
+        tags: ["😝🤙🏻"],
         views: 1500000000},
   49: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/FE!N.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Fein.jpg", 
         title: "FE!N (feat, Playboi Carti)", 
         artist: "Travis Scott",
+        tags: ["😝🤙🏻"],
         views: 602800000},
   50: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Love%20Me.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Lil%20Wayne.jpg", 
         title: "Love Me (feat, Drake Future)", 
         artist: "Lil Wayne",
+        tags: ["😝🤙🏻"],
         views: 1000000000},
    51: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/PELIGROSA.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/peligrosa.jpg", 
         title: "PELIGROSA", 
         artist: "FloyyMenor",
+        tags: ["😝🤙🏻"],
         views: 311400000},
   52: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Old%20Town%20Road%20(Remix).mp3",
         audio_320: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Old%20Town%20Road.mp3",
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/old%20town%20roand.jpg",
         title: "Old Town Road (Remix) - (feat, Billy Ray Cyrus)", 
         artist: "Lil Nas X",
+        tags: ["😝🤙🏻"],
         views: 3850000000},
   53: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Gata%20Only.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Gata%20Only.jpg", 
         title: "Gata Only", 
         artist: "FloyyMenor & Cris Mj",
+        tags: ["😝🤙🏻"],
         views: 1400000000},
   54: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/BAND4BAND.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/BAND4BAND.jpg", 
         title: "BAND4BAND", 
         artist: "Central Lee & Lil Baby",
+        tags: ["😝🤙🏻"],
         views: 384700000},
   55: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/redrum.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/redrum.jpg", 
         title: "redrum", 
         artist: "21 Savage",
+        tags: ["😝🤙🏻"],
         views: 336200000},
   56: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Popular%20(From%20The%20Idol%20Vol.%201%20(Music%20from%20the%20HBO%20Original%20Series)).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/popular.jpg", 
         title: "Popular (From The Idol Vol. 1 (Music from the HBO Original Series)) (feat, Playboi Carti)", 
         artist: "The Weeknd",
+        tags: ["😝🤙🏻"],
         views: 384300000},
   57: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Mask%20Off.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mask%20off.jpg", 
         title: "Mask Off", 
         artist: "Future",
+        tags: ["😝🤙🏻"],
         views: 1400000000},
   58: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Dangerous%20Woman.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/women.png", 
         title: "Dangerous Woman", 
         artist: "Ariana Grande",
+        tags: ["😝🤙🏻"],
         views: 1200000000},
   59: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Hotel%20Room.mp3", 
-        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/hotel%20room.jpg", 
+        image: "https://raw.githubusercontent.com/pretyfx69/music-files/refs/heads/main/hotel%20room.jpg", 
         title: "Hotel Room", 
         artist: "FLVCKKA, Sleezy O & Maury",
+        tags: ["😝🤙🏻"],
         views: 427800000},
   60: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/NOW%20OR%20NEVER.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/NOW%20OR%20NEVER.jpg", 
         title: "NOW OR NEVER", 
         artist: "TKandz & CXSPER",
+        tags: ["😝🤙🏻"],
         views: 11500000},
   61: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/No%20Pole.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/no%20pole.jpg", 
         title: "No Pole", 
         artist: "Don Toliver",
+        tags: ["😝🤙🏻"],
         views: 142500000},
   62: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Again.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/again.jpg", 
         title: "Again (feat, XXXTENTACION)", 
         artist: "Noah Cyrus & XXXTENTACION",
+        tags: ["😝🤙🏻"],
         views: 306200000},
   63: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Gata%20Only%20(Remix).mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/gata%20only%20remix.jpg", 
         title: "Gata Only (Remix)", 
         artist: "FloyyMenor, Ozuna & Anitta",
+        tags: ["😝🤙🏻"],
         views: 87100000},
   64: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/You%20Don't%20Own%20Me.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/you%20dont.jpg", 
         title: "You Don't Own Me", 
         artist: "SAYGRACE & G-Eazy",
+        tags: ["😝🤙🏻"],
         views: 717600000},
   65: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Mind%20Games.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mind%20games.jpg", 
         title: "Mind Games", 
         artist: "Sickick",
+        tags: ["😝🤙🏻"],
         views: 249200000},
   66: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Renegade.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/renearge.jpg", 
         title: "Renegade", 
         artist: "Aaryan Shah",
+        tags: ["😝🤙🏻"],
         views: 111300000},
   67: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Low%20Life.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/low%20life.jpg", 
         title: "Low Life (feat, The Weeknd)", 
         artist: "Future & The Weeknd",
+        tags: ["😝🤙🏻"],
         views: 1200000000},
   68: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Embrace%20It.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/embrace%20it.jpg", 
         title: "Embrace It", 
         artist: "Ndotz",
+        tags: ["😝🤙🏻"],
         views: 95100000},
   69: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Descer.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/descer.jpg", 
         title: "Descer", 
         artist: "Kew & Dj LK da Esćoria",
+        tags: ["😝🤙🏻"],
         views: 61800000},
   70: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Havana.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/havana.jpg", 
         title: "Havana (feat, Young Thug)", 
         artist: "Camila Cabello & Young Thug",
+        tags: ["😝🤙🏻"],
         views: 4000000000},
-  71: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Dat%20tick.mp3", 
+  71: { audio: "https://github.com/PretyFX69/music-files/refs/heads/main/Dat%20tick.mp3", 
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/dat%20stick.jpg", 
         title: "Dat $tick", 
         artist: "Rich Brian",
+        tags: ["😝🤙🏻"],
         views: 249200000},
+  72: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Still%20With%20You.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/still%20witth%20you.jpg", 
+        title: "Still With You", 
+        artist: "Jung Kook",
+        tags: ["😝🤙🏻"],
+        views: 144800000},
+  73: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/nuts.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/nuts.png", 
+        title: "nuts", 
+        artist: "Lil Peep & rainy bear",
+        tags: ["😝🤙🏻"],
+        views: 108300000},
+  74: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Swim.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/swim.jpg", 
+        title: "Swim", 
+        artist: "Chase Atlantic",
+        tags: ["😝🤙🏻"],
+        views: 540700000},
+  75: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Reminder.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/reminder.png", 
+        title: "Reminder", 
+        artist: "The Weeknd",
+        tags: ["😝🤙🏻"],
+        views: 907900000},
+  76: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Rock%20That%20Body.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/rock%20that.jpg", 
+        title: "Rock That Body", 
+        artist: "Black Eyed Peas",
+        tags: ["😝🤙🏻"],
+        views: 424600000},
+  77: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Too%20Many%20Nights.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/too%20many.png", 
+        title: "Too Many Nights (feat, Don Toliver & With Future)", 
+        artist: "Metro Boomin, Future & Don Toliver",
+        tags: ["😝🤙🏻"],
+        views: 400600000},
+  78: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/S%C3%A3o%20Paulo.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/Timeless.jpg", 
+        title: "São Paulo (feat, Anitta)", 
+        artist: "The Weeknd & Anitta",
+        tags: ["😝🤙🏻"],
+        views: 181900000},
+  79: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/She%20Will.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/she%20will.jpg", 
+        title: "She Will", 
+        artist: "Lil Wayne & Drake",
+        tags: ["😝🤙🏻"],
+        views: 189600000},
+  80: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Call%20Out%20My%20Name.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/call%20out.png", 
+        title: "Call Out My Name", 
+        artist: "The Weeknd",
+        tags: ["😝🤙🏻"],
+        views: 1600000000},
+  81: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/The%20Hills.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/the%20hills.jpg", 
+        title: "The Hills", 
+        artist: "The Weeknd",
+        tags: ["😝🤙🏻"],
+        views: 2700000000},
+  82: { audio: "https://github.com/PretyFX69/music-files2/raw/refs/heads/main/Around%20Me.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files2/refs/heads/main/too%20many.png", 
+        title: "Around Me (feat, Don Toliver)", 
+        artist: "Metro Boomin & Don Toliver",
+        tags: ["😝🤙🏻"],
+        views: 76900000},
 }; 
+
 /* ======================
-   VARIABEL GLOBAL
+   VARIABEL GLOBAL (DIPERBAIKI)
+   - currentRealIndex: index asli pada playlist[]
+   - currentFilteredIndex: posisi dalam filteredList (jika filteredMode)
+   - filteredMode: boolean
 ====================== */
 const playlist = Object.keys(songs).map(k => ({ id: k, ...songs[k] }));
 
-let currentIndex = 0;
+let currentRealIndex = 0;        // index pada playlist[]
+let currentFilteredIndex = -1;   // posisi dalam filteredList (0..n-1), -1 saat tidak filtered
 let isPlaying = false;
 let isLoop = false;
 let filteredMode = false;
@@ -827,80 +931,14 @@ const equalizerSubmenu = document.getElementById("equalizerSubmenu");
 const reportBtn = document.getElementById("reportBtn");
 
 /* ======================
-   PLAYLIST RENDER & UTILS
+   UTILITY FUNCTIONS
 ====================== */
-function updateScrollingTitle() {
-    const title = document.getElementById("nowTitle");
-    const wrap  = document.querySelector(".title-wrap");
-
-    // Hapus animasi dulu biar clean
-    title.classList.remove("scrolling");
-
-    // Ini inti fix-nya:
-    // Kalau panjang teks lebih kecil dari kotak → tidak bergerak
-    if (title.scrollWidth <= wrap.clientWidth) {
-        return;
-    }
-
-    // Kalau lebih panjang → aktifkan animasi scroll
-    title.classList.add("scrolling");
-}
-
-// Patch ketika lagu diganti
-const originalLoadSong = loadSongByIndex;
-loadSongByIndex = function (i) {
-    originalLoadSong(i);
-    setTimeout(updateScrollingTitle, 150);
-};
-function renderPlaylist(list) {
-  playlistBox.innerHTML = "";
-  songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
-  function formatViews(v) {
+function formatViews(v) {
   if (!v) return "0 pemutaran";
-   if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
+  if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
   if (v >= 1000000) return (v / 1000000).toFixed(1) + " jt pemutaran";
   if (v >= 1000) return (v / 1000).toFixed(0) + " rb pemutaran";
   return v + "x diputar";
-}
-
-  list.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'song-item';
-    div.dataset.index = i;
-
-    div.innerHTML = `
-      <div class="song-meta">
-        <div class="song-title">${s.title}</div>
-        <div class="song-artist">${s.artist}</div>
-      </div>
-      <div class="song-views" 
-           style="font-size:12px; opacity:0.6; white-space:nowrap;">
-        ${formatViews(s.views || 0)}
-      </div>
-    `;
-
-    div.addEventListener('click', () => {
-      loadSongByIndex(i);
-      playAudio();
-    });
-
-    playlistBox.appendChild(div);
-
-    const opt = document.createElement('option');
-    opt.value = s.id;
-    opt.textContent = `${s.title} - ${s.artist}`;
-    songSelect.appendChild(opt);
-  });
-}
-function highlightPlaying() {
-    const items = playlistBox.querySelectorAll('.song-item');
-    items.forEach(it => it.style.outline = "");
-
-    const item = playlistBox.querySelector(`.song-item[data-index="${currentIndex}"]`);
-    if (item) {
-        item.style.outline = "2px solid rgba(255,255,255,0.1)";
-        item.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
 }
 
 function formatTime(s) {
@@ -911,7 +949,145 @@ function formatTime(s) {
 }
 
 /* ======================
-   AUDIO CONTEXT + EQUALIZER (DIPINDAH KE INIT PLAY)
+   SCROLLING TITLE FIX
+====================== */
+function updateScrollingTitle() {
+    const title = document.getElementById("nowTitle");
+    const wrap  = document.querySelector(".title-wrap");
+    title.classList.remove("scrolling");
+    if (title.scrollWidth <= wrap.clientWidth) return;
+    // restart animation
+    void title.offsetWidth;
+    title.classList.add("scrolling");
+}
+
+/* ======================
+   LOAD & PLAY LAGU (CORE)
+   - loadSongByIndex(i) expects i = index in playlist[]
+====================== */
+function loadSongByIndex(i) {
+  // SAFEGUARD
+  if (typeof i !== 'number' || i < 0 || i >= playlist.length) return;
+
+  currentRealIndex = i;
+  // When not filtered, reset filteredIndex; but do not disable filteredMode automatically
+  // (we keep filteredMode until user clears search)
+  const s = playlist[currentRealIndex];
+
+  // set audio
+  audio.src = s.audio;
+  audio.load();
+
+  // ui
+  cd.style.backgroundImage = `url('${s.image}')`;
+  nowTitle.textContent = s.title;
+  nowArtist.textContent = s.artist;
+
+  // small delay to update scrolling title after DOM text change
+  setTimeout(updateScrollingTitle, 120);
+
+  // highlight correct item in rendered list
+  highlightPlaying();
+}
+
+/* ======================
+   RENDER PLAYLIST (FULL OR FILTERED)
+   - If list is full playlist, items' data-index = playlist index
+   - If list is filteredList, items' data-index = filtered position (pos)
+====================== */
+function renderPlaylist(list, isFiltered = false) {
+  playlistBox.innerHTML = "";
+  songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
+
+  list.forEach((s, idx) => {
+    const div = document.createElement('div');
+    div.className = 'song-item';
+
+    // data-index semantics:
+    // - if filtered, set data-index to filtered pos (idx)
+    // - if full, set to playlist index (s.index if present, else idx)
+    if (isFiltered) {
+      div.dataset.index = idx; // filtered position
+    } else {
+      // full playlist render: store playlist index (s.id may be string key)
+      // find playlist index by matching id
+      const playlistIndex = playlist.findIndex(p => String(p.id) === String(s.id));
+      div.dataset.index = playlistIndex >= 0 ? playlistIndex : idx;
+    }
+
+    div.innerHTML = `
+      <div class="song-meta">
+        <div class="song-title">${s.title}</div>
+        <div class="song-artist">${s.artist}</div>
+      </div>
+      <div class="song-views" style="font-size:12px; opacity:0.6; white-space:nowrap;">
+        ${formatViews(s.views || 0)}
+      </div>
+    `;
+
+    // Click handler depends on whether we are rendering filtered results or full playlist
+    div.addEventListener('click', () => {
+      if (isFiltered) {
+        // idx is filtered position -> map to playlist index stored on object (we store index earlier)
+        filteredMode = true;
+        currentFilteredIndex = idx;
+        const realIndex = list[idx].index;
+        loadSongByIndex(realIndex);
+        playAudio();
+      } else {
+        // full playlist item: dataset.index is playlist index
+        filteredMode = false;
+        currentFilteredIndex = -1;
+        const realIndex = Number(div.dataset.index);
+        loadSongByIndex(realIndex);
+        playAudio();
+      }
+    });
+
+    playlistBox.appendChild(div);
+
+    // populate select with playlist entries (always use playlist array order)
+    const opt = document.createElement('option');
+    // if rendering filtered list, use the underlying playlist id
+    const optId = isFiltered ? list[idx].id : s.id;
+    const optArtist = isFiltered ? list[idx].artist : s.artist;
+    const optTitle = isFiltered ? list[idx].title : s.title;
+    opt.value = optId;
+    opt.textContent = `${optTitle} - ${optArtist}`;
+    songSelect.appendChild(opt);
+  });
+
+  // After render, ensure highlighted item visible
+  highlightPlaying();
+}
+
+/* ======================
+   HIGHLIGHT currently playing item
+   - Works for both filteredMode & full playlist render
+====================== */
+function highlightPlaying() {
+    const items = playlistBox.querySelectorAll('.song-item');
+    items.forEach(it => it.style.outline = "");
+
+    if (filteredMode && filteredList.length) {
+        // We rendered filteredList -> currentFilteredIndex is position in filteredList
+        const item = playlistBox.querySelector(`.song-item[data-index="${currentFilteredIndex}"]`);
+        if (item) {
+            item.style.outline = "2px solid rgba(255,255,255,0.1)";
+            item.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+    }
+    // Otherwise try to highlight by playlist index (data-index = playlist index)
+    const itemByReal = playlistBox.querySelector(`.song-item[data-index="${currentRealIndex}"]`);
+    if (itemByReal) {
+        itemByReal.style.outline = "2px solid rgba(255,255,255,0.1)";
+        itemByReal.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
+
+/* ======================
+   AUDIO CONTEXT + EQUALIZER
 ====================== */
 let audioCtx, track;
 let bassEQ, midEQ, trebleEQ;
@@ -949,6 +1125,7 @@ function resumeAudioCtx() {
 }
 
 function setEqualizer(mode) {
+    if (!bassEQ) return;
     switch(mode) {
         case 'bass':
             bassEQ.gain.value = 15;
@@ -974,17 +1151,20 @@ document.querySelectorAll('#equalizerSubmenu .submenu-item').forEach(item => {
         resumeAudioCtx();
         const eq = item.dataset.eq;
         setEqualizer(eq);
+        equalizerSubmenu.style.display = "none";
     });
 });
+
+/* ======================
+   DOWNLOAD & QUALITY
+====================== */
 document.getElementById("downloadMusic").addEventListener("click", () => {
     let currentSong;
 
-    if (filteredMode && filteredList.length > 0) {
-        // Ambil lagu yang pertama di hasil search (filteredList)
-        currentSong = filteredList[currentIndex] || filteredList[0];
+    if (filteredMode && filteredList.length > 0 && currentFilteredIndex >= 0) {
+        currentSong = filteredList[currentFilteredIndex];
     } else {
-        // Ambil lagu biasa dari playlist
-        currentSong = playlist[currentIndex];
+        currentSong = playlist[currentRealIndex];
     }
 
     if (!currentSong || !currentSong.audio) {
@@ -994,20 +1174,21 @@ document.getElementById("downloadMusic").addEventListener("click", () => {
 
     const a = document.createElement("a");
     a.href = currentSong.audio;
-    a.download = currentSong.title + ".mp3";
+    a.download = (currentSong.title || "track") + ".mp3";
     document.body.appendChild(a);
     a.click();
     a.remove();
 
     alert(`Download: ${currentSong.title} - ${currentSong.artist}`);
 });
+
 qualitySub.querySelectorAll(".submenu-item").forEach(item => {
     item.addEventListener("click", () => {
         const q = item.dataset.quality; // "96", "128", "192", "320"
-        // ambil lagu saat ini (filtered mode atau playlist biasa)
-        const s = filteredMode && filteredList.length ? filteredList[currentIndex] : playlist[currentIndex];
+        const s = (filteredMode && filteredList.length && currentFilteredIndex >= 0)
+                    ? filteredList[currentFilteredIndex]
+                    : playlist[currentRealIndex];
 
-        // ambil file sesuai kualitas, fallback ke s.audio jika tidak ada
         const file = (s && (s[`audio_${q}`] || s.audio)) || "";
 
         if (!file) {
@@ -1016,7 +1197,6 @@ qualitySub.querySelectorAll(".submenu-item").forEach(item => {
             return;
         }
 
-        console.log("Switch quality ->", q, file);
         audio.src = file;
         audio.load();
         audio.play().catch(err => console.log("Play error after switching quality:", err));
@@ -1025,44 +1205,17 @@ qualitySub.querySelectorAll(".submenu-item").forEach(item => {
         qualitySub.style.display = "none";
     });
 });
-// ===== KECEPATAN MUSIC =====
+
+/* ===== KECEPATAN MUSIC ===== */
 document.getElementById("speedControl").addEventListener("click", () => {
     const speed = prompt("Masukkan kecepatan music", audio.playbackRate);
     if (speed) {
         audio.playbackRate = parseFloat(speed);
     }
 });
-function loadSongByIndex(i) {
-  currentIndex = i;
 
-  const list = filteredMode ? filteredList : playlist;
-  const s = list[currentIndex];
-
-  audio.src = s.audio;
-  cd.style.backgroundImage = `url('${s.image}')`;
-  nowTitle.textContent = s.title;
-  nowArtist.textContent = s.artist;
-
-  highlightPlaying();
-}
-// ===== HUBUNGI PEMILIK =====
-document.getElementById("contactOwner").addEventListener("click", () => {
-        window.location.href = "https://wa.me/6285700711112?text=Halo%20saya%20ingin%20menghubungi%20Anda.";
-    });
-    function onSelectChange() {
-  const id = songSelect.value;
-  if (!id) return;
-
-  filteredMode = false;
-  const idx = playlist.findIndex(p => String(p.id) === id);
-
-  if (idx !== -1) {
-    loadSongByIndex(idx);
-    playAudio();
-  }
-}
 /* ======================
-   AUDIO CONTROL
+   PLAY / PAUSE
 ====================== */
 function playAudio() {
     initAudio();
@@ -1096,22 +1249,40 @@ playBtn.addEventListener('click', () => {
   isPlaying ? pauseAudio() : playAudio();
 });
 
-/* ------ NEXT / PREV ------ */
+/* ======================
+   NEXT / PREV (FINAL, FIXED)
+====================== */
 nextBtn.addEventListener('click', () => {
-  const list = filteredMode ? filteredList : playlist;
-  currentIndex = (currentIndex + 1) % list.length;
-  loadSongByIndex(currentIndex);
-  playAudio();
+  if (filteredMode && filteredList.length && currentFilteredIndex >= 0) {
+    if (currentFilteredIndex + 1 < filteredList.length) {
+      currentFilteredIndex++;
+      const realIndex = filteredList[currentFilteredIndex].index;
+      loadSongByIndex(realIndex);
+      playAudio();
+    }
+  } else {
+    // normal playlist
+    const nextReal = (currentRealIndex + 1) % playlist.length;
+    loadSongByIndex(nextReal);
+    playAudio();
+  }
 });
 
 prevBtn.addEventListener('click', () => {
-  const list = filteredMode ? filteredList : playlist;
-  currentIndex = (currentIndex - 1 + list.length) % list.length;
-  loadSongByIndex(currentIndex);
-  playAudio();
+  if (filteredMode && filteredList.length && currentFilteredIndex >= 0) {
+    if (currentFilteredIndex - 1 >= 0) {
+      currentFilteredIndex--;
+      const realIndex = filteredList[currentFilteredIndex].index;
+      loadSongByIndex(realIndex);
+      playAudio();
+    }
+  } else {
+    const prevReal = (currentRealIndex - 1 + playlist.length) % playlist.length;
+    loadSongByIndex(prevReal);
+    playAudio();
+  }
 });
 
-/* Loop toggle */
 /* ------ LOOP TOGGLE ------ */
 toggleLoopBtn.addEventListener('click', () => {
   isLoop = !isLoop;
@@ -1119,7 +1290,9 @@ toggleLoopBtn.addEventListener('click', () => {
   toggleLoopBtn.textContent = `Mode: ${isLoop ? 'Music Akan Diulang Otomatis' : 'Mengganti Music Selanjutnya'}`;
 });
 
-/* ------ PROGRESS BAR ------ */
+/* ======================
+   PROGRESS BAR
+====================== */
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
     const w = (audio.currentTime / audio.duration) * 100;
@@ -1135,74 +1308,114 @@ seekBar.addEventListener('click', (e) => {
     audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
 });
 
-audio.addEventListener('ended', () => {
-    cd.classList.remove('playing');
-    isPlaying = false;
-    playBtn.textContent = "▶";
-    if (!audio.loop) {
-        const list = filteredMode ? filteredList : playlist;
-        currentIndex++;
-        if (currentIndex < list.length) {
-            loadSongByIndex(currentIndex);
-            playAudio();
-        }
+/* ======================
+   AUDIO ENDED (FINAL FIX)
+====================== */
+audio.addEventListener("ended", () => {
+  cd.classList.remove('playing');
+  isPlaying = false;
+  playBtn.textContent = "▶";
+
+  if (audio.loop) return;
+
+  if (filteredMode && filteredList.length && currentFilteredIndex >= 0) {
+    if (currentFilteredIndex + 1 < filteredList.length) {
+      currentFilteredIndex++;
+      const realIndex = filteredList[currentFilteredIndex].index;
+      loadSongByIndex(realIndex);
+      playAudio();
+    } else {
+      // end of filtered list: stop (or optionally wrap)
+      // we choose to stop and keep filteredMode active
+      // If you want wrap within filtered list, uncomment below:
+      // currentFilteredIndex = 0; loadSongByIndex(filteredList[0].index); playAudio();
     }
+  } else {
+    // normal playlist continue
+    const nextReal = (currentRealIndex + 1) % playlist.length;
+    loadSongByIndex(nextReal);
+    playAudio();
+  }
 });
 
 /* ======================
-   SEARCH / FILTER
+   SEARCH / FILTER (SUPER AKURAT)
+   - search by title / artist / tags / id
 ====================== */
 function filterSongs() {
-  const q = searchSong.value.trim().toLowerCase();
+  const q = (searchSong.value || "").trim().toLowerCase();
 
   if (q === "") {
+    // show full playlist
     filteredMode = false;
-    renderPlaylist(playlist);
+    filteredList = [];
+    currentFilteredIndex = -1;
+    renderPlaylist(playlist, false);
     highlightPlaying();
     return;
   }
-  function formatViews(v) {
-  if (!v) return "0 pemutaran";
-  if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
-  if (v >= 1000000) return (v / 1000000).toFixed(1) + " jt pemutaran";
-  if (v >= 1000) return (v / 1000).toFixed(0) + " rb pemutaran";
-  return v + "x diputar";
-}
 
-  filteredMode = true;
+  // build filteredList with original playlist indices
   filteredList = playlist
     .map((s, i) => ({ ...s, index: i }))
-    .filter(s => (s.title + " " + s.artist).toLowerCase().includes(q));
-
-  playlistBox.innerHTML = "";
-
-  filteredList.forEach((s, pos) => {
-    const div = document.createElement("div");
-    div.className = "song-item";
-    div.dataset.index = pos;
-
-    div.innerHTML = `
-      <div class="song-meta">
-        <div class="song-title">${s.title}</div>
-        <div class="song-artist">${s.artist}</div>
-      </div>
-      <div class="song-views" 
-           style="font-size:12px; opacity:0.6; white-space:nowrap;">
-        ${formatViews(s.views || 0)}
-      </div>
-    `;
-
-    div.addEventListener("click", () => {
-      currentIndex = pos;
-      loadSongByIndex(pos);
-      playAudio();
+    .filter(s => {
+      const text = (s.title + " " + s.artist + " " + (s.tags || []).join(" ")).toLowerCase();
+      // more advanced: allow partial tokens and multi-word
+      const tokens = q.split(/\s+/).filter(Boolean);
+      // every token must match somewhere (AND search) — like YT/Spotify feel
+      return tokens.every(tok => text.includes(tok));
     });
 
-    playlistBox.appendChild(div);
-  });
+  // reset filtered pointer to first match
+  filteredMode = true;
+  currentFilteredIndex = filteredList.length ? 0 : -1;
+
+  // show filtered render (we render filteredList but keep playlist indices inside objects)
+  renderPlaylist(filteredList, true);
+
+  // if there's at least 1 result, auto-select first result (but do not autoplay unless user clicks)
+  if (filteredList.length) {
+    // highlight first filtered result
+    highlightPlaying();
+  }
 }
+
+/* Support pressing Enter on search to auto-play first match */
+searchSong.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    filterSongs();
+    if (filteredList.length) {
+      currentFilteredIndex = 0;
+      loadSongByIndex(filteredList[0].index);
+      playAudio();
+    }
+  } else {
+    // on other keys, filter live
+    setTimeout(filterSongs, 0);
+  }
+});
+
 /* ======================
-   MENU & SUBMENU FIX
+   SELECT CHANGE (dropdown)
+====================== */
+function onSelectChange() {
+  const id = songSelect.value;
+  if (!id) return;
+
+  filteredMode = false;
+  currentFilteredIndex = -1;
+  const idx = playlist.findIndex(p => String(p.id) === String(id));
+
+  if (idx !== -1) {
+    loadSongByIndex(idx);
+    playAudio();
+  }
+}
+songSelect.addEventListener('change', onSelectChange);
+
+/* ======================
+   MENU & SUBMENU
 ====================== */
 document.addEventListener("DOMContentLoaded", () => {
     menuBtn.addEventListener("click", (e) => {
@@ -1236,8 +1449,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-
 /* ======================
    SLEEP TIMER
 ====================== */
@@ -1264,9 +1475,9 @@ sleepSub.querySelectorAll(".submenu-item").forEach(item => {
    REPORT
 ====================== */
 reportBtn.addEventListener("click", () => {
-    const currentSong = filteredMode && filteredList.length > 0
-        ? filteredList[currentIndex] || filteredList[0]
-        : playlist[currentIndex];
+    const currentSong = (filteredMode && filteredList.length && currentFilteredIndex >= 0)
+        ? filteredList[currentFilteredIndex]
+        : playlist[currentRealIndex];
 
     if (!currentSong) {
         alert("Tidak ada lagu yang diputar untuk dilaporkan!");
@@ -1292,8 +1503,12 @@ setInterval(() => {
 /* ======================
    INIT
 ====================== */
-renderPlaylist(playlist);
-loadSongByIndex(0);
+(function init() {
+  // initial render uses playlist (full)
+  renderPlaylist(playlist, false);
+  // load first song (index 0)
+  loadSongByIndex(0);
+})();
 </script>
 </body>
 </html>
