@@ -309,6 +309,30 @@
 .submenu-item:hover {
     background: rgba(255,255,255,0.1);
 }
+.title-wrap {
+  width: 100%;
+  max-width: 260px;   /* <— batas lebar text, aman buat player kamu */
+  margin: 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  position: relative;
+}
+
+.title-scroll {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scrolling {
+  animation: scroll-title 20s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes scroll-title {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 </style>
 </head>
 <body>
@@ -370,7 +394,9 @@
       <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
     <div class="yt-info">
-      <h2 id="nowTitle">Tidak ada lagu diputar</h2>
+<div class="title-wrap">
+  <h2 id="nowTitle" class="title-scroll">Tidak ada lagu diputar</h2>
+</div>
       <p id="nowArtist">—</p>
     </div>
     <div class="yt-bar" id="seekBar"><div id="progress"></div></div>
@@ -660,7 +686,7 @@ const songs = {
   52: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Old%20Town%20Road%20(Remix).mp3",
         audio_320: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Old%20Town%20Road.mp3",
         image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/old%20town%20roand.jpg",
-        title: "Old Town Road (feat, Billy Ray Cyrus)", 
+        title: "Old Town Road (Remix) - (feat, Billy Ray Cyrus)", 
         artist: "Lil Nas X",
         views: 3850000000},
   53: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Gata%20Only.mp3", 
@@ -668,6 +694,96 @@ const songs = {
         title: "Gata Only", 
         artist: "FloyyMenor & Cris Mj",
         views: 1400000000},
+  54: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/BAND4BAND.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/BAND4BAND.jpg", 
+        title: "BAND4BAND", 
+        artist: "Central Lee & Lil Baby",
+        views: 384700000},
+  55: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/redrum.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/redrum.jpg", 
+        title: "redrum", 
+        artist: "21 Savage",
+        views: 336200000},
+  56: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Popular%20(From%20The%20Idol%20Vol.%201%20(Music%20from%20the%20HBO%20Original%20Series)).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/popular.jpg", 
+        title: "Popular (From The Idol Vol. 1 (Music from the HBO Original Series)) (feat, Playboi Carti)", 
+        artist: "The Weeknd",
+        views: 384300000},
+  57: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Mask%20Off.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mask%20off.jpg", 
+        title: "Mask Off", 
+        artist: "Future",
+        views: 1400000000},
+  58: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Dangerous%20Woman.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/women.png", 
+        title: "Dangerous Woman", 
+        artist: "Ariana Grande",
+        views: 1200000000},
+  59: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Hotel%20Room.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/hotel%20room.jpg", 
+        title: "Hotel Room", 
+        artist: "FLVCKKA, Sleezy O & Maury",
+        views: 427800000},
+  60: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/NOW%20OR%20NEVER.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/NOW%20OR%20NEVER.jpg", 
+        title: "NOW OR NEVER", 
+        artist: "TKandz & CXSPER",
+        views: 11500000},
+  61: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/No%20Pole.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/no%20pole.jpg", 
+        title: "No Pole", 
+        artist: "Don Toliver",
+        views: 142500000},
+  62: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Again.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/again.jpg", 
+        title: "Again (feat, XXXTENTACION)", 
+        artist: "Noah Cyrus & XXXTENTACION",
+        views: 306200000},
+  63: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Gata%20Only%20(Remix).mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/gata%20only%20remix.jpg", 
+        title: "Gata Only (Remix)", 
+        artist: "FloyyMenor, Ozuna & Anitta",
+        views: 87100000},
+  64: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/You%20Don't%20Own%20Me.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/you%20dont.jpg", 
+        title: "You Don't Own Me", 
+        artist: "SAYGRACE & G-Eazy",
+        views: 717600000},
+  65: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Mind%20Games.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/mind%20games.jpg", 
+        title: "Mind Games", 
+        artist: "Sickick",
+        views: 249200000},
+  66: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Renegade.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/renearge.jpg", 
+        title: "Renegade", 
+        artist: "Aaryan Shah",
+        views: 111300000},
+  67: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Low%20Life.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/low%20life.jpg", 
+        title: "Low Life (feat, The Weeknd)", 
+        artist: "Future & The Weeknd",
+        views: 1200000000},
+  68: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Embrace%20It.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/embrace%20it.jpg", 
+        title: "Embrace It", 
+        artist: "Ndotz",
+        views: 95100000},
+  69: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Descer.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/descer.jpg", 
+        title: "Descer", 
+        artist: "Kew & Dj LK da Esćoria",
+        views: 61800000},
+  70: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Havana.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/havana.jpg", 
+        title: "Havana (feat, Young Thug)", 
+        artist: "Camila Cabello & Young Thug",
+        views: 4000000000},
+  71: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/Dat%20tick.mp3", 
+        image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/dat%20stick.jpg", 
+        title: "Dat $tick", 
+        artist: "Rich Brian",
+        views: 249200000},
 }; 
 /* ======================
    VARIABEL GLOBAL
@@ -713,6 +829,29 @@ const reportBtn = document.getElementById("reportBtn");
 /* ======================
    PLAYLIST RENDER & UTILS
 ====================== */
+function updateScrollingTitle() {
+    const title = document.getElementById("nowTitle");
+    const wrap  = document.querySelector(".title-wrap");
+
+    // Hapus animasi dulu biar clean
+    title.classList.remove("scrolling");
+
+    // Ini inti fix-nya:
+    // Kalau panjang teks lebih kecil dari kotak → tidak bergerak
+    if (title.scrollWidth <= wrap.clientWidth) {
+        return;
+    }
+
+    // Kalau lebih panjang → aktifkan animasi scroll
+    title.classList.add("scrolling");
+}
+
+// Patch ketika lagu diganti
+const originalLoadSong = loadSongByIndex;
+loadSongByIndex = function (i) {
+    originalLoadSong(i);
+    setTimeout(updateScrollingTitle, 150);
+};
 function renderPlaylist(list) {
   playlistBox.innerHTML = "";
   songSelect.innerHTML = '<option value="">— Pilih Lagu —</option>';
