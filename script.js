@@ -517,6 +517,9 @@ const reportBtn = document.getElementById("reportBtn");
 /* ======================
    UTILITY FUNCTIONS
 ====================== */
+document.getElementById("openWebsite").addEventListener("click", () => {
+    window.open("https://pretyfx69.github.io/Music-CyberZain2/", "_blank"); 
+});
 function formatViews(v) {
   if (!v) return "0 pemutaran";
   if (v >= 1000000000) return (v / 1000000000).toFixed(1) + " M pemutaran";
