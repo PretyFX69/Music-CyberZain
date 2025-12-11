@@ -80,7 +80,7 @@
         box-shadow: 0 0 22px #ff00ff88;
         transform-origin:center;
         transition: transform .35s ease, box-shadow .35s ease;
-        animation: spin 20s linear infinite;
+        animation: spin 25s linear infinite;
         animation-play-state: paused;
     }
     @keyframes spin { 
