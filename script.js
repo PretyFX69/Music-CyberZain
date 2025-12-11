@@ -41,7 +41,7 @@ const songs = {
        artist: "Tenxi, Suisei & Jemsii",
        views: 68400000},
   7: { audio: "https://github.com/PretyFX69/music-files/raw/refs/heads/main/penjaga%20hati.mp3", 
-       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/penjaga%20hti.jpg", 
+       image: "https://raw.githubusercontent.com/PretyFX69/music-files/refs/heads/main/IMG-20251129-WA0073.jpg", 
        title: "Penjaga Hati", 
        artist: "Nadhif Basalamah",
        views: 286500000},
